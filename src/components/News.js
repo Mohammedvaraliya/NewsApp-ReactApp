@@ -39,7 +39,7 @@ export class News extends Component {
     }
 
     componentDidMount() {
-        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=${this.apiKey1}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=${this.apiKey2}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
         fetch(url).then((res) => res.json())
             .then((result) => {
                 this.setState({
@@ -51,7 +51,7 @@ export class News extends Component {
     }
 
     handleUpPreviousClick = async () => {
-        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=${this.apiKey1}&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=${this.apiKey2}&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
         this.setState({isLoaded: true});
         fetch(url).then((res) => res.json())
             .then((result) => {
@@ -64,7 +64,7 @@ export class News extends Component {
     }
 
     handleUpNextClick = async () => {
-        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=${this.apiKey1}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=${this.apiKey2}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
         fetch(url).then((res) => res.json())
             .then((result) => {
                 this.setState({
