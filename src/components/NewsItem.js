@@ -12,7 +12,7 @@ export class NewsItem extends Component {
         return (
             <>
                 <div>
-                    <div className="card" style={{width: "20rem", height: "500px", width: "auto"}}>
+                    <div className="card" style={{width: "20rem", height: "auto", width: "auto"}}>
                         <img src={imageUrl} className="card-img-top" alt="News img" />
                         <div className="card-body">
                             <h5 className="card-title">{title}...</h5>

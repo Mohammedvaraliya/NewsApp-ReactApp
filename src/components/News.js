@@ -5,6 +5,18 @@ import Spinner from './Spinner';
 
 export class News extends Component {
 
+    static defaultProps = {
+        country: 'in',
+        pageSize: 9,
+        category: 'general',
+    }
+
+    static propTypes = {
+        country: PropTypes.string,
+        pageSize: PropTypes.number,
+        category: PropTypes.string,
+    }
+
     title = "Sorry Title not found please click Read more button to know more :)";
     description = "This is small desription to check if it is working or not";
     imageUrl = "https://img.freepik.com/free-vector/internet-network-warning-404-error-page-file-found-web-page-internet-error-page-issue-found-network-404-error-present-by-man-sleep-display_1150-55450.jpg?w=2000";
@@ -22,7 +34,7 @@ export class News extends Component {
     }
 
     componentDidMount() {
-        let url = `https://newsapi.org/v2/top-headlines?country=in&from=2022-10-20&to=2022-10-20&sortBy=popularity&apiKey=45dd4adc8f204b1e839546385882a2ff&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=45dd4adc8f204b1e839546385882a2ff&page=${this.state.page}&pageSize=${this.props.pageSize}`;
         fetch(url).then((res) => res.json())
             .then((result) => {
                 this.setState({
@@ -34,7 +46,7 @@ export class News extends Component {
     }
 
     handleUpPreviousClick = async () => {
-        let url = `https://newsapi.org/v2/top-headlines?country=in&from=2022-10-20&to=2022-10-20&sortBy=popularity&apiKey=45dd4adc8f204b1e839546385882a2ff&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=45dd4adc8f204b1e839546385882a2ff&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
         this.setState({isLoaded: true});
         fetch(url).then((res) => res.json())
             .then((result) => {
@@ -47,7 +59,7 @@ export class News extends Component {
     }
 
     handleUpNextClick = async () => {
-        let url = `https://newsapi.org/v2/top-headlines?country=in&from=2022-10-20&to=2022-10-20&sortBy=popularity&apiKey=45dd4adc8f204b1e839546385882a2ff&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=45dd4adc8f204b1e839546385882a2ff&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
         fetch(url).then((res) => res.json())
             .then((result) => {
                 this.setState({
@@ -70,7 +82,7 @@ export class News extends Component {
             return (
                 <>
                     <div className='container my-3'>
-                        <h1 className="text-center">NewsDaddy - Top Headlines</h1>
+                        <h1 className="text-center" style={{margin: "35px"}}>NewsDaddy - Top Headlines</h1>
                         <div className="row my-4">
                             {articles.map((element) => {
                                 return <div key={element.url} className="col-md-4 mb-4">

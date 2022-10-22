@@ -4,6 +4,12 @@ import React, { Component } from 'react'
 import Navbar from './components/Navbar';
 import News from './components/News';
 import NewsItem from './components/NewsItem';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 export default class App extends Component {
 
@@ -11,7 +17,7 @@ export default class App extends Component {
     return (
       <div>
         <Navbar/>
-        <News pageSize={9}/>
+        <News pageSize={9} country={"in"} category={"science"}/>
         </div>
     )
   }
