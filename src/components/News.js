@@ -48,30 +48,20 @@ export class News extends Component {
     }
 
     componentDidMount() {
-        this.props.setProgress(0);
+        this.props.setProgress(20);
         let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=${this.apiKey3}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
         fetch(url).then((res) => res.json())
             .then((result) => {
+                this.props.setProgress(40);
                 this.setState({
                     articles: result.articles,
                     totalResults: result.totalResults,
                     isLoaded: true,
                 });
+                this.props.setProgress(60);
+                this.props.setProgress(100);
             })
-            this.props.setProgress(100);
-    }
-
-    handleUpPreviousClick = async () => {
-        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=${this.apiKey3}&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
-        this.setState({ isLoaded: true });
-        fetch(url).then((res) => res.json())
-            .then((result) => {
-                this.setState({
-                    page: this.state.page - 1,
-                    articles: result.articles,
-                    isLoaded: true,
-                });
-            })
+            
     }
 
     handleUpNextClick = async () => {
