@@ -12,15 +12,15 @@ export class NewsItem extends Component {
         return (
             <>
                 <div>
-                    <div className="card" style={{ width: "20rem", height: "auto", width: "auto" }}>
+                    <div className="card mb-3" style={{ width: "20rem", height: "520px", width: "auto" }}>
                         <span className="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style={{left: '90%', zIndex: '1'}}>
                             <strong>{source}</strong>
                         </span>
-                        <img src={imageUrl} className="card-img-top" alt="News img" />
+                        <img src={imageUrl} style={{maxHeight: "200px"}} className="card-img-top" alt="News img" />
                         <div className="card-body">
                             <p className="card-text"><small className="text-muted">By <b>{author}</b> on <b>{new Date(publishedAt).toGMTString()}</b></small></p>
-                            <h5 className="card-title">{title}...</h5>
-                            <p className="card-text">{description.slice(0, 194)}...</p>
+                            <h5 className="card-title">{title.slice(0, 80)}...</h5>
+                            <p className="card-text">{description.slice(0, 180)}...</p>
                             <a href={newsUrl} target='_blank' className="btn btn-sm btn-dark">Read more..</a>
                         </div>
                     </div>
