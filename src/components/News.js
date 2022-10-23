@@ -29,9 +29,6 @@ export class News extends Component {
     description = "This is small desription to check if it is working or not";
     imageUrl = "https://img.freepik.com/free-vector/internet-network-warning-404-error-page-file-found-web-page-internet-error-page-issue-found-network-404-error-present-by-man-sleep-display_1150-55450.jpg?w=2000";
     newsUrl = "http://localhost:3000/home";
-    apiKey1 = '45dd4adc8f204b1e839546385882a2ff';
-    apiKey2 = '7d3b590442b547308b4c218dc5c7ddcb';
-    apiKey3 = 'e98de93c6e45413892251fbc06c2b403';
     pageTitle = this.props.category
 
     constructor(props) {
@@ -49,7 +46,7 @@ export class News extends Component {
 
     componentDidMount() {
         this.props.setProgress(20);
-        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=${this.apiKey3}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
         fetch(url).then((res) => res.json())
             .then((result) => {
                 this.props.setProgress(40);
@@ -65,7 +62,7 @@ export class News extends Component {
     }
 
     handleUpNextClick = async () => {
-        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=${this.apiKey3}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
         fetch(url).then((res) => res.json())
             .then((result) => {
                 this.setState({
@@ -96,6 +93,7 @@ export class News extends Component {
         else {
             return (
                 <>
+                <div style={{marginTop: "80px"}}>
                     <h2 className="text-center" style={{ margin: "35px" }}>NewsDaddy - Top {this.capitalizeFirstLetter(this.pageTitle)} Headlines</h2>
                     <InfiniteScroll
                         dataLength={this.state.articles.length}
@@ -113,6 +111,7 @@ export class News extends Component {
                             </div>
                         </div>
                     </InfiniteScroll>
+                    </div>
 
                     {/* <div className="conytainer d-flex justify-content-between">
                             <button disabled={this.state.page <= 1} type="button" className="btn btn-danger" onClick={this.handleUpPreviousClick}>&laquo;&laquo; Previous</button>
