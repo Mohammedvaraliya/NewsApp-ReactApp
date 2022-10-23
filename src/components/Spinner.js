@@ -1,17 +1,13 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
 import loading from './loading.gif'
+import React from 'react'
 
-export class Spinner extends Component {
-  static propTypes = {}
+const Spinner = () => {
 
-  render() {
     return (
       <div className="text-center my-5">
-        <img className='my-3' src={loading} alt="loading" />
+        <img style={{marginTop: "10%"}} className='my-3' src={loading} alt="loading" />
       </div>
     )
-  }
 }
 
 export default Spinner
