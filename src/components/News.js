@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import NewsItem from './NewsItem'
 import Spinner from './Spinner';
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -25,7 +25,7 @@ const News = (props) => {
     const newsUrl = "http://localhost:3000/home";
     const pageTitle = props.category
 
-    const updateNews = async() => {
+    const updateNews = async () => {
         props.setProgress(20);
         let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`;
         fetch(url).then((res) => res.json())
@@ -37,24 +37,25 @@ const News = (props) => {
                 props.setProgress(60);
                 props.setProgress(100);
             })
-            document.title = `${capitalizeFirstLetter(pageTitle)} - NewsDaddy - Get latest news`
     }
 
     useEffect(() => {
+        document.title = `${capitalizeFirstLetter(pageTitle)} - NewsDaddy - Get latest news`
         updateNews();
+        // eslint-disable-next-line
     }, [])
 
     const handleUpNextClick = async () => {
         let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`;
         fetch(url).then((res) => res.json())
             .then((result) => {
-                    props.setProgress(40);
-                    setArticles(articles.concat(result.articles));
-                    setTotalResults(result.totalResults);
-                    setIsLoaded(true);
-                    props.setProgress(60);
-                    props.setProgress(100);
-                    setPage(page + 1);
+                props.setProgress(40);
+                setArticles(articles.concat(result.articles));
+                setTotalResults(result.totalResults);
+                setIsLoaded(true);
+                props.setProgress(60);
+                props.setProgress(100);
+                setPage(page + 1);
             })
     }
 
@@ -67,13 +68,15 @@ const News = (props) => {
     };
 
     if (!isLoaded) {
-        return <Spinner />;
+        return <div style={{ marginTop: "420px" }}>
+                    <Spinner />
+                </div>;
     }
     else {
-            return (
-                <>
-                <div style={{marginTop: "80px"}}>
-                    <h2 className="text-center" style={{ margin: "35px" }}>NewsDaddy - Top {capitalizeFirstLetter(pageTitle)} Headlines</h2>
+        return (
+            <>
+                <div style={{ marginTop: "80px" }}>
+                    <h2 className="text-center" style={{ margin: "7px", marginTop: "90px" }}>NewsDaddy - Top {capitalizeFirstLetter(pageTitle)} Headlines</h2>
                     <InfiniteScroll
                         dataLength={articles.length}
                         next={fetchMoreData}
@@ -90,17 +93,17 @@ const News = (props) => {
                             </div>
                         </div>
                     </InfiniteScroll>
-                    </div>
+                </div>
 
-                    {/* <div className="conytainer d-flex justify-content-between">
+                {/* <div className="conytainer d-flex justify-content-between">
                             <button disabled={page <= 1} type="button" className="btn btn-danger" onClick={handleUpPreviousClick}>&laquo;&laquo; Previous</button>
                             <button disabled={page >= Math.ceil(totalResults / props.pageSize)} type="button" className="btn btn-danger" onClick={handleUpNextClick}>Next &raquo;&raquo;</button>
                         </div> */}
 
 
-                </>
-            )
-        }
+            </>
+        )
+    }
 }
 
 News.defaultProps = {

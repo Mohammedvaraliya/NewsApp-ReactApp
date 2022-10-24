@@ -3,11 +3,9 @@ import './App.css';
 import React, { useState } from 'react'
 import Navbar from './components/Navbar';
 import News from './components/News';
-import NewsItem from './components/NewsItem';
 import LoadingBar from 'react-top-loading-bar'
 import {
-  BrowserRouter as Router,
-  Routes,
+  HashRouter as Router,
   Route,
   Switch,
 } from "react-router-dom";
@@ -15,13 +13,14 @@ import {
 const App = () => {
   const pageSize = 18;
   const country = 'in';
-  const APIKEY = process.env.REACT_APP_API_KEY4;
+  const APIKEY = process.env.REACT_APP_API_KEY5;
 
   const [progress, setprogress] = useState(10)
 
   const setProgress = (progress) => {
     setprogress(progress);
   }
+
 
     return (
       <>
