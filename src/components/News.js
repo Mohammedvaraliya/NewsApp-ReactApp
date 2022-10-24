@@ -1,101 +1,90 @@
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, {useEffect, useState} from 'react'
 import NewsItem from './NewsItem'
 import Spinner from './Spinner';
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export class News extends Component {
+const News = (props) => {
 
-    
+    const [articles, setArticles] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [page, setPage] = useState(1);
+    const [totalResults, setTotalResults] = useState(0);
 
-    capitalizeFirstLetter = (string) => {
+
+    const capitalizeFirstLetter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1)
     }
 
-    author = "Unknown";
-    publishedAt = 'DateNotFound';
-    source = 'Unavailable';
-    title = "Sorry Title not found please click Read more button to know more :)";
-    description = "This is small desription to check if it is working or not";
-    imageUrl = "https://img.freepik.com/free-vector/internet-network-warning-404-error-page-file-found-web-page-internet-error-page-issue-found-network-404-error-present-by-man-sleep-display_1150-55450.jpg?w=2000";
-    newsUrl = "http://localhost:3000/home";
-    pageTitle = this.props.category
+    const author = "Unknown";
+    const publishedAt = 'DateNotFound';
+    const source = 'Unavailable';
+    const title = "Sorry Title not found please click Read more button to know more :)";
+    const description = "This is small desription to check if it is working or not";
+    const imageUrl = "https://img.freepik.com/free-vector/internet-network-warning-404-error-page-file-found-web-page-internet-error-page-issue-found-network-404-error-present-by-man-sleep-display_1150-55450.jpg?w=2000";
+    const newsUrl = "http://localhost:3000/home";
+    const pageTitle = props.category
 
-    constructor(props) {
-        super(props);
-        console.log("hello i am constructor from News component");
-        console.log(this.props.pageSize)
-        this.state = {
-            articles: [],
-            isLoaded: false,
-            page: 1,
-            totalResults: 0,
-        }
-        document.title = `${this.capitalizeFirstLetter(this.pageTitle)} - NewsDaddy - Get latest news`
-    }
-
-    componentDidMount() {
-        this.props.setProgress(20);
-        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    const updateNews = async() => {
+        props.setProgress(20);
+        let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`;
         fetch(url).then((res) => res.json())
             .then((result) => {
-                this.props.setProgress(40);
-                this.setState({
-                    articles: result.articles,
-                    totalResults: result.totalResults,
-                    isLoaded: true,
-                });
-                this.props.setProgress(60);
-                this.props.setProgress(100);
+                props.setProgress(40);
+                setArticles(result.articles);
+                setTotalResults(result.totalResults);
+                setIsLoaded(true);
+                props.setProgress(60);
+                props.setProgress(100);
             })
-            
+            document.title = `${capitalizeFirstLetter(pageTitle)} - NewsDaddy - Get latest news`
     }
 
-    handleUpNextClick = async () => {
-        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+    useEffect(() => {
+        updateNews();
+    }, [])
+
+    const handleUpNextClick = async () => {
+        let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`;
         fetch(url).then((res) => res.json())
             .then((result) => {
-                this.setState({
-                    articles: this.state.articles.concat(result.articles),
-                    totalResults: result.totalResults,
-                    isLoaded: true,
-                    page: this.state.page + 1,
-                });
+                    props.setProgress(40);
+                    setArticles(articles.concat(result.articles));
+                    setTotalResults(result.totalResults);
+                    setIsLoaded(true);
+                    props.setProgress(60);
+                    props.setProgress(100);
+                    setPage(page + 1);
             })
     }
 
-    fetchMoreData = async() => {
-        this.props.setProgress(0);
+    const fetchMoreData = () => {
+        props.setProgress(40);
         setTimeout(() => {
-            this.handleUpNextClick();
+            handleUpNextClick();
+            props.setProgress(100);
         }, 1000);
-        this.props.setProgress(100);
     };
 
-
-    static propTypes = {}
-
-    render() {
-        const { isLoaded, articles } = this.state;
-        if (!isLoaded) {
-            return <Spinner />;
-        }
-        else {
+    if (!isLoaded) {
+        return <Spinner />;
+    }
+    else {
             return (
                 <>
                 <div style={{marginTop: "80px"}}>
-                    <h2 className="text-center" style={{ margin: "35px" }}>NewsDaddy - Top {this.capitalizeFirstLetter(this.pageTitle)} Headlines</h2>
+                    <h2 className="text-center" style={{ margin: "35px" }}>NewsDaddy - Top {capitalizeFirstLetter(pageTitle)} Headlines</h2>
                     <InfiniteScroll
-                        dataLength={this.state.articles.length}
-                        next={this.fetchMoreData}
-                        hasMore={this.state.articles.length != this.state.totalResults}
+                        dataLength={articles.length}
+                        next={fetchMoreData}
+                        hasMore={articles.length !== totalResults}
                         loader={<Spinner />}
                     >
                         <div className="container">
                             <div className="row my-4">
                                 {articles.map((element) => {
                                     return <div key={element.url} className="col-md-4 mb-4">
-                                        <NewsItem author={element.author ? element.author : this.author} publishedAt={element.publishedAt ? element.publishedAt : this.publishedAt} source={element.source.name ? element.source.name : this.source} title={element.title ? element.title : this.title} newsUrl={element.url ? element.url : this.newsUrl} description={element.description ? element.description : this.description} imageUrl={element.urlToImage ? element.urlToImage : this.imageUrl} />
+                                        <NewsItem author={element.author ? element.author : author} publishedAt={element.publishedAt ? element.publishedAt : publishedAt} source={element.source.name ? element.source.name : source} title={element.title ? element.title : title} newsUrl={element.url ? element.url : newsUrl} description={element.description ? element.description : description} imageUrl={element.urlToImage ? element.urlToImage : imageUrl} />
                                     </div>
                                 })}
                             </div>
@@ -104,15 +93,27 @@ export class News extends Component {
                     </div>
 
                     {/* <div className="conytainer d-flex justify-content-between">
-                            <button disabled={this.state.page <= 1} type="button" className="btn btn-danger" onClick={this.handleUpPreviousClick}>&laquo;&laquo; Previous</button>
-                            <button disabled={this.state.page >= Math.ceil(this.state.totalResults / this.props.pageSize)} type="button" className="btn btn-danger" onClick={this.handleUpNextClick}>Next &raquo;&raquo;</button>
+                            <button disabled={page <= 1} type="button" className="btn btn-danger" onClick={handleUpPreviousClick}>&laquo;&laquo; Previous</button>
+                            <button disabled={page >= Math.ceil(totalResults / props.pageSize)} type="button" className="btn btn-danger" onClick={handleUpNextClick}>Next &raquo;&raquo;</button>
                         </div> */}
 
 
                 </>
             )
         }
-    }
+}
+
+News.defaultProps = {
+    country: 'in',
+    pageSize: 18,
+    page: 1,
+    category: 'general',
+}
+
+News.propTypes = {
+    country: PropTypes.string,
+    pageSize: PropTypes.number,
+    category: PropTypes.string,
 }
 
 export default News
