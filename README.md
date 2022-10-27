@@ -6,12 +6,7 @@
 
 # Website overview
 
-
-![image](https://user-images.githubusercontent.com/95087498/197984331-dcac1704-fe1f-4fb3-941a-690b65ba5b9f.png)
-
-![image](https://user-images.githubusercontent.com/95087498/197984475-63495c46-a04e-47f4-9a09-0d03b2f36b61.png)
-
-![image](https://user-images.githubusercontent.com/95087498/197984583-36377d10-243e-44cc-927b-5e09d1111295.png)
+![NewsApp](https://user-images.githubusercontent.com/95087498/198296268-47bc1048-86ad-4d72-b1d3-241f7c7ca5ba.gif)
 
 
 
