@@ -1,7 +1,12 @@
 # NewsDaddy-ReactApp
 
 <p>NewsDaddy is a news app which can be use to grap the latest news bites. If you are intersested in <b>news, whether, politics and sports news, business news, Entertainment news, health news, science news, technology news</b> NewsDaddy is all about latest news.</p>
-<h3>Using NewsAPI</h3>
+
+<h3>
+<a href="https://newsapi.org/">
+  <b>Using NewsAPI</b>
+</a>
+</h3>
 
 
 # Website overview
