@@ -27,7 +27,7 @@ const News = (props) => {
 
     const updateNews = async () => {
         props.setProgress(20);
-        let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&from=2023-02-25&to=2023-02-28&sortBy=popularity&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`;
         fetch(url).then((res) => res.json())
             .then((result) => {
                 props.setProgress(40);
@@ -46,7 +46,7 @@ const News = (props) => {
     }, [])
 
     const handleUpNextClick = async () => {
-        let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&from=2022-10-20&to=2022-10-20&sortBy=popularity&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&from=2023-02-25&to=2023-02-28&sortBy=popularity&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=${props.pageSize}`;
         fetch(url).then((res) => res.json())
             .then((result) => {
                 props.setProgress(40);
