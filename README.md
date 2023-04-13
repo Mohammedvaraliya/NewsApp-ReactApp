@@ -1,6 +1,6 @@
-# NewsDaddy-ReactApp
+# Now-We-Know-ReactApp
 
-<p>NewsDaddy is a news app which can be use to grap the latest news bites. If you are intersested in <b>news, whether, politics and sports news, business news, Entertainment news, health news, science news, technology news</b> NewsDaddy is all about latest news.</p>
+<p>Now-We-Know is a news app which can be use to grap the latest news bites. If you are intersested in <b>news, whether, politics and sports news, business news, Entertainment news, health news, science news, technology news</b> Now-We-Know is all about latest news.</p>
 
 <h3>
 <a href="https://newsapi.org/">
